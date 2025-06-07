@@ -27,14 +27,16 @@ export default function Home() {
     }
   }, []);
   return (
-    <div className={`${theme == "dark" ? "bg-[#171717]" : "bg-gray-50"}`}>
-      <HomePage
-        theme={theme}
-        onChange={handleThemeChange}
-        hideContent={hideContent}
-        onHideContent={handleHideContent}
-      />
-      {!hideContent && <Footer />}
-    </div>
+    <main>
+      <section className={`${theme == "dark" ? "bg-[#171717]" : "bg-gray-50"}`}>
+        <HomePage
+          theme={theme}
+          onChange={handleThemeChange}
+          hideContent={hideContent}
+          onHideContent={handleHideContent}
+        />
+        {!hideContent && <Footer />}
+      </section>
+    </main>
   );
 }

@@ -7,9 +7,14 @@ const ThemeChangeButton = ({ onChange, theme }: any) => {
   return (
     <div className="cursor-pointer" onClick={onChange}>
       {theme == "dark" ? (
-        <Image src="light-mode.svg" alt="light-mode" height={30} width={30} />
+        <Image
+          src="../light-mode.svg"
+          alt="light-mode"
+          height={30}
+          width={30}
+        />
       ) : (
-        <Image height={30} width={30} src="dark-mode.svg" alt="darkmode" />
+        <Image height={30} width={30} src="../dark-mode.svg" alt="darkmode" />
       )}
     </div>
   );

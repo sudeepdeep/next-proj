@@ -1,241 +1,137 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import RunCode, { RunCode2 } from "../components/runcode";
+import React from "react";
+import Link from "next/link";
 import ThemeChangeButton from "../components/themechange";
-import ClearConsole, { ClearConsole2 } from "../components/clearconsole";
-import FullScreen from "../components/fullscreen";
-import CompilerEditor from "../components/editor";
 
-const HomePage = ({ theme, onChange, hideContent, onHideContent }: any) => {
-  const [code, setCode] = useState("// write your javascript code here");
-  const [output, setOutput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+const languages = [
+  { name: "JavaScript", slug: "javascript", available: true },
+  { name: "Python", slug: "python", available: false },
+  { name: "R", slug: "r", available: false },
+  { name: "C++", slug: "cpp", available: false },
+  { name: "Java", slug: "java", available: false },
+];
 
-  const handleSaveShortcut = (e: KeyboardEvent) => {
-    const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
-    const isSaveCombo =
-      (isMac && e.metaKey && e.key === "s") ||
-      (!isMac && e.ctrlKey && e.key === "s");
-
-    if (isSaveCombo) {
-      e.preventDefault();
-      runCode(); // Call your custom function
-    }
-  };
-
-  const runCode = () => {
-    setIsLoading(true);
-    setOutput("");
-    console.log(code);
-
-    try {
-      // Create a sandboxed environment to capture console output
-      const logs: string[] = [];
-
-      // Custom console that captures output
-      const mockConsole = {
-        log: (...args: any[]) => {
-          logs.push(
-            args
-              .map((arg) =>
-                typeof arg === "object"
-                  ? JSON.stringify(arg, null, 2)
-                  : String(arg)
-              )
-              .join(" ")
-          );
-        },
-        error: (...args: any[]) => {
-          logs.push(`❌ Error: ${args.map((arg) => String(arg)).join(" ")}`);
-        },
-        warn: (...args: any[]) => {
-          logs.push(`⚠️ Warning: ${args.map((arg) => String(arg)).join(" ")}`);
-        },
-        info: (...args: any[]) => {
-          logs.push(`ℹ️ Info: ${args.map((arg) => String(arg)).join(" ")}`);
-        },
-      };
-
-      // Create function with custom console
-      const func = new Function(
-        "console",
-        `
-        try {
-          ${code}
-        } catch(error) {
-          console.error(error.message);
-        }
-      `
-      );
-
-      // Execute the code with mock console
-      func(mockConsole);
-
-      // Set output
-      setOutput(
-        logs.length > 0
-          ? logs.join("\n")
-          : "Code executed successfully (no output)"
-      );
-    } catch (error: any) {
-      setOutput(`❌ Execution Error: ${error.message}`);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const clearOutput = () => {
-    setOutput("");
-  };
-
-  const handleEditorChange = (value: string | undefined) => {
-    setCode(value || "");
-  };
-
-  useEffect(() => {
-    window.addEventListener("keydown", handleSaveShortcut);
-    return () => window.removeEventListener("keydown", handleSaveShortcut);
-  }, [code]);
-
+const HomePage = ({ theme, onChange, hideContent }: any) => {
   return (
-    <div
-      className={`min-h-screen ${
-        theme == "dark" ? "bg-[#171717]" : "bg-gray-50"
-      }`}
-    >
-      {/* Header */}
-      {!hideContent && (
-        <>
-          <div
-            className={`${
-              theme == "dark"
-                ? "bg-[#2D2D2D] border-black"
-                : "bg-white border-white"
-            } shadow-sm border-b`}
-          >
-            <div className="max-w-7xl mx-auto px-4 py-4">
-              <div className="flex items-center justify-between">
-                <h1
-                  className={`text-2xl font-bold ${
-                    theme == "dark" ? "text-white" : "text-gray-800"
-                  } `}
-                >
-                  synt<span className="text-blue-600">X</span>
-                  <span className="text-[10px] ml-0.5">.co.in</span>
-                </h1>
-                <div className="flex gap-3 items-center">
-                  <ClearConsole clearOutput={clearOutput} />
-                  <RunCode2 runCode={runCode} isLoading={isLoading} />
-                  <ThemeChangeButton onChange={onChange} theme={theme} />
+    <main className={`min-h-screen ${theme == "light" && "bg-gray-50"}`}>
+      <header>
+        {!hideContent && (
+          <>
+            <div
+              className={`${
+                theme == "dark" ? " border-black" : " border-white"
+              } shadow-sm border-b`}
+            >
+              <div className="max-w-7xl mx-auto px-4 py-4">
+                <div className="flex items-center justify-between">
+                  <h1
+                    className={`text-2xl font-bold ${
+                      theme == "dark" ? "text-white" : "text-gray-800"
+                    } `}
+                  >
+                    syntaxz
+                    {/* <span className="text-blue-600">X</span> */}
+                    <span className="text-[10px] ml-0.5">.com</span>
+                  </h1>
+                  <div className="flex gap-3 items-center">
+                    <ThemeChangeButton onChange={onChange} theme={theme} />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
+      </header>
 
-      {/* Main Content */}
       <div
         className={`${
-          hideContent ? "max-w-[100%]" : "max-w-[90%]"
-        } mx-auto p-4`}
+          theme == "dark" ? "bg-[#2D2D2D] text-white" : "bg-white text-black"
+        } w-full min-h-[100vh] h-auto px-[10%] text-center pt-2`}
       >
-        <div
-          className={`grid grid-cols-1 lg:grid-cols-3 gap-4 ${
-            hideContent ? "h-[calc(100vh-40px)]" : "h-[calc(100vh-140px)]"
-          }`}
+        <h1
+          className={`text-4xl font-bold ${
+            theme == "dark" ? "text-white" : "text-gray-800"
+          }  mb-4`}
         >
-          {/* Code Editor */}
-          <div className="lg:col-span-2">
-            <div
-              className={`${
-                theme == "dark" ? "bg-[#1E1E1E]" : "bg-[#f9f7f7]"
-              } rounded-xl overflow-hidden h-full shadow-lg border-b"`}
-            >
-              <div
-                className={`flex items-center justify-between gap-3 px-4 py-3 ${
-                  theme == "dark"
-                    ? "bg-[#2D2D2D] border-gray-600"
-                    : "bg-gray-600 border-amber-50"
-                }  border-b`}
-              >
-                <div className=" flex gap-1.5 items-center">
-                  <div>
-                    <Image
-                      alt="JavaScript logo"
-                      src="/js-logo.svg"
-                      width={24}
-                      height={24}
-                      className="flex-shrink-0"
-                    />
-                  </div>
-                  <div
-                    className={`${
-                      theme == "dark" ? "text-yellow-400" : "text-white"
-                    }  font-medium text-sm`}
-                  >
-                    JavaScript
-                  </div>
-                </div>
-                <div className="flex gap-3.5">
-                  <RunCode runCode={runCode} />
-                  <FullScreen
-                    hideContent={hideContent}
-                    onHideContent={onHideContent}
-                  />
-                </div>
-              </div>
-              <div className="h-[calc(100%-60px)]">
-                <CompilerEditor
-                  theme={theme}
-                  code={code}
-                  handleEditorChange={handleEditorChange}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Output Console */}
-          <div className="lg:col-span-1">
-            <div
-              className={`${
-                theme == "dark" ? "bg-[#1E1E1E]" : "bg-white"
-              } rounded-xl shadow-lg h-[200px] overflow-y-auto ${
-                hideContent ? "md:h-[95vh]" : "md:h-[85vh]"
-              }  flex flex-col`}
-            >
-              <div
-                className={`px-4 py-3 ${
-                  theme == "dark" ? "bg-[#2D2D2D]" : "bg-gray-600"
-                } text-white rounded-t-xl flex justify-between`}
-              >
-                <h3 className="font-medium">Output</h3>
-
-                <ClearConsole2 clearOutput={clearOutput} />
-              </div>
-              <div className="flex-1 p-4 overflow-auto">
-                {output ? (
-                  <pre
-                    className={`text-sm font-mono whitespace-pre-wrap ${
-                      theme == "dark" ? "text-white" : "text-gray-800"
-                    }  leading-relaxed`}
-                  >
-                    {output}
-                  </pre>
-                ) : (
-                  <div className="text-gray-500 text-sm italic">
-                    Click "Run Code or "Ctrl + s" to see output here...
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+          Syntaxz
+        </h1>
+        <p
+          className={`${
+            theme == "dark" ? "text-white" : "text-gray-800"
+          } mb-10`}
+        >
+          Instantly write and run code online. Currently supporting JavaScript,
+          with more languages coming soon!
+        </p>
+        <div className="mb-2.5">
+          <Link href={"/about"}>About</Link> |{" "}
+          <Link href={"/contact"}>Contact us</Link>
         </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {languages.map((lang) => (
+            <div
+              key={lang.slug}
+              className={`rounded-lg p-6 border shadow-md ${
+                lang.available ? "bg-white" : "bg-gray-200 opacity-60"
+              }`}
+            >
+              <h2 className="text-xl font-semibold text-gray-700 mb-2">
+                {lang.name}
+              </h2>
+              <p className="text-gray-500 text-sm mb-4">
+                {lang.available
+                  ? `Try out ${lang.name} code directly in your browser.`
+                  : `${lang.name} support coming soon.`}
+              </p>
+              {lang.available ? (
+                <Link
+                  href={`/compilers/${lang.slug}`}
+                  className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+                >
+                  Try Now
+                </Link>
+              ) : (
+                <button
+                  disabled
+                  className="inline-block bg-gray-400 text-white px-4 py-2 rounded cursor-not-allowed"
+                >
+                  Coming Soon
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+        <section className="mt-16 text-center">
+          <h2
+            className={`text-3xl font-bold 
+            ${theme == "dark" ? "text-white" : "text-gray-800"}
+            mb-4`}
+          >
+            Learn for Free 🚀
+          </h2>
+          <p
+            className={`
+            ${theme == "dark" ? "text-white" : "text-gray-800"}
+            max-w-2xl mx-auto mb-6`}
+          >
+            We're not just a code compiler — we also help you learn to code! We
+            handpick and organize the best free programming courses and
+            tutorials available across platforms like YouTube, freeCodeCamp,
+            Coursera, and more.
+          </p>
+          <p
+            className={`
+            ${theme == "dark" ? "text-white" : "text-gray-800"}
+            max-w-2xl mx-auto mb-1.5`}
+          >
+            Whether you're a beginner or want to sharpen your skills, you’ll
+            find high-quality content to boost your programming journey — all
+            100% free.
+          </p>
+        </section>
       </div>
-    </div>
+    </main>
   );
 };
 
