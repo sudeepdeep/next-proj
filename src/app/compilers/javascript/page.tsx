@@ -146,15 +146,18 @@ const JavascriptPage = () => {
           >
             <div className="max-w-7xl mx-auto px-4 py-4">
               <div className="flex items-center justify-between">
-                <h1
-                  className={`text-2xl font-bold ${
-                    theme == "dark" ? "text-white" : "text-gray-800"
-                  } `}
-                >
-                  syntaxz
-                  {/* <span className="text-blue-600">X</span> */}
-                  <span className="text-[10px] ml-0.5">.com</span>
-                </h1>
+                <div>
+                  <Image
+                    src={`${
+                      theme == "dark"
+                        ? `/syntaxz-dark.png`
+                        : `/syntaxz-light.png`
+                    }`}
+                    width={120}
+                    height={120}
+                    alt="syntaxz"
+                  />
+                </div>
                 <div className="flex gap-3 items-center">
                   <ClearConsole clearOutput={clearOutput} />
                   <RunCode2 runCode={runCode} isLoading={isLoading} />

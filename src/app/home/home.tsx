@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import ThemeChangeButton from "../components/themechange";
+import Image from "next/image";
 
 const languages = [
   { name: "JavaScript", slug: "javascript", available: true },
@@ -20,20 +21,23 @@ const HomePage = ({ theme, onChange, hideContent }: any) => {
           <>
             <div
               className={`${
-                theme == "dark" ? " border-black" : " border-white"
+                theme == "dark"
+                  ? " border-black bg-[#2D2D2D]"
+                  : "border-b border-gray-200"
               } shadow-sm border-b`}
             >
-              <div className="max-w-7xl mx-auto px-4 py-4">
+              <div className="max-w-7xl mx-auto px-4 py-2">
                 <div className="flex items-center justify-between">
-                  <h1
-                    className={`text-2xl font-bold ${
-                      theme == "dark" ? "text-white" : "text-gray-800"
-                    } `}
-                  >
-                    syntaxz
-                    {/* <span className="text-blue-600">X</span> */}
-                    <span className="text-[10px] ml-0.5">.com</span>
-                  </h1>
+                  <Image
+                    src={`${
+                      theme == "dark"
+                        ? `/syntaxz-dark.png`
+                        : `/syntaxz-light.png`
+                    }`}
+                    width={120}
+                    height={120}
+                    alt="syntaxz"
+                  />
                   <div className="flex gap-3 items-center">
                     <ThemeChangeButton onChange={onChange} theme={theme} />
                   </div>
@@ -46,27 +50,39 @@ const HomePage = ({ theme, onChange, hideContent }: any) => {
 
       <div
         className={`${
-          theme == "dark" ? "bg-[#2D2D2D] text-white" : "bg-white text-black"
-        } w-full min-h-[100vh] h-auto px-[10%] text-center pt-2`}
+          theme == "dark" ? "bg-[#171717] text-white" : "bg-white text-black"
+        } w-full min-h-[70vh] h-auto px-[2%] text-center pt-2  flex flex-col md:flex-row items-center justify-between`}
       >
-        <h1
-          className={`text-4xl font-bold ${
-            theme == "dark" ? "text-white" : "text-gray-800"
-          }  mb-4`}
-        >
-          Syntaxz
-        </h1>
-        <p
-          className={`${
-            theme == "dark" ? "text-white" : "text-gray-800"
-          } mb-10`}
-        >
-          Instantly write and run code online. Currently supporting JavaScript,
-          with more languages coming soon!
-        </p>
-        <div className="mb-2.5">
-          <Link href={"/about"}>About</Link> |{" "}
-          <Link href={"/contact"}>Contact us</Link>
+        <div className="w-[100%] text-left">
+          <h1
+            className={`md:text-8xl text-4xl font-bold ${
+              theme == "dark" ? "text-white" : "text-gray-800"
+            }  mb-4`}
+          >
+            Syntaxz<span className="text-[#ff5757]">{"<"}</span>
+            {"/"}
+            <span className="text-[#ff914d]">{">"}</span> <br />
+            Online Compiler
+          </h1>
+          <p>🟢Online Code Compiler for Multiple Languages</p>
+          <p
+            className={`${
+              theme == "dark" ? "text-white" : "text-gray-800"
+            } mb-10`}
+          >
+            ✅Instantly write and run code online.
+            <br /> 📣Currently supporting JavaScript, with more languages coming
+            soon!
+          </p>
+          <div className="mb-2.5">
+            <Link className="text-blue-500" href={"/about"}>
+              About
+            </Link>{" "}
+            |{" "}
+            <Link className="text-blue-500" href={"/contact"}>
+              Contact us
+            </Link>
+          </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {languages.map((lang) => (
@@ -102,7 +118,10 @@ const HomePage = ({ theme, onChange, hideContent }: any) => {
             </div>
           ))}
         </div>
-        <section className="mt-16 text-center">
+      </div>
+
+      <section className="mt-16 text-left px-[2%] flex md:flex-row flex-col items-center">
+        <div className="md:w-[50%]">
           <h2
             className={`text-3xl font-bold 
             ${theme == "dark" ? "text-white" : "text-gray-800"}
@@ -113,7 +132,7 @@ const HomePage = ({ theme, onChange, hideContent }: any) => {
           <p
             className={`
             ${theme == "dark" ? "text-white" : "text-gray-800"}
-            max-w-2xl mx-auto mb-6`}
+            max-w-2xl mb-6`}
           >
             We're not just a code compiler — we also help you learn to code! We
             handpick and organize the best free programming courses and
@@ -123,14 +142,17 @@ const HomePage = ({ theme, onChange, hideContent }: any) => {
           <p
             className={`
             ${theme == "dark" ? "text-white" : "text-gray-800"}
-            max-w-2xl mx-auto mb-1.5`}
+            max-w-2xl mb-1.5`}
           >
             Whether you're a beginner or want to sharpen your skills, you’ll
             find high-quality content to boost your programming journey — all
-            100% free.
+            <b> 100% free</b>.
           </p>
-        </section>
-      </div>
+        </div>
+        <div className="md:w-[50%]">
+          <Image src="/learn.png" width={600} height={600} alt="learn-image" />
+        </div>
+      </section>
     </main>
   );
 };

@@ -29,6 +29,9 @@ export const metadata: Metadata = {
   publisher: "Syntaxz",
   robots: "index, follow",
   viewport: "width=device-width, initial-scale=1",
+  icons: {
+    icon: "/favicon.png", // or "/favicon.png"
+  },
 };
 
 export default function RootLayout({
