@@ -1,37 +1,23 @@
 /* eslint-disable react/no-unescaped-entities */
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+import LogoShift from "../components/logoshift";
 
 const ContactPage = () => {
   return (
-    <main className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-xl mx-auto bg-white shadow-md rounded-lg p-8">
+    <main className="min-h-screen  p-6">
+      <div className="max-w-xl mx-auto  shadow-md rounded-lg p-8">
         <div className="flex justify-center">
-          <Link href="/">
-            <Image
-              src="/syntaxz-light.png"
-              width={200}
-              height={200}
-              alt="syntaxz-logo"
-            />
-          </Link>
+          <LogoShift />
         </div>
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
-          Contact Us
-        </h1>
-        <p className="text-center text-gray-600 mb-8">
+        <h1 className="text-3xl font-bold mb-6 text-center ">Contact Us</h1>
+        <p className="text-center  mb-8">
           Have questions, suggestions, or feedback? We'd love to hear from you.
         </p>
-        <p className="text-center text-gray-600 mb-8">
+        <p className="text-center  mb-8">
           You can also write an email to cosmocoding1@gmail.com
         </p>
         <form className="space-y-6">
           <div>
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="name" className="block text-sm font-medium ">
               Your Name
             </label>
             <input
@@ -43,10 +29,7 @@ const ContactPage = () => {
           </div>
 
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="email" className="block text-sm font-medium ">
               Email Address
             </label>
             <input
@@ -58,10 +41,7 @@ const ContactPage = () => {
           </div>
 
           <div>
-            <label
-              htmlFor="message"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="message" className="block text-sm font-medium ">
               Message
             </label>
             <textarea

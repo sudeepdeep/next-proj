@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
+import LayoutWrapper from "./layout-wrapper";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -32,6 +34,9 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.png", // or "/favicon.png"
   },
+  verification: {
+    google: "4HcUYb3E0iUBxAxhCxEGFonbJ90ovBNSDD9PAlX9GhI",
+  },
 };
 
 export default function RootLayout({
@@ -44,7 +49,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );

@@ -1,14 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import RunCode, { RunCode2 } from "../../components/runcode";
-import ThemeChangeButton from "../../components/themechange";
-import ClearConsole, { ClearConsole2 } from "../../components/clearconsole";
-import FullScreen from "../../components/fullscreen";
+import UIStore from "@/app/store";
 import dynamic from "next/dynamic";
-import Link from "next/link";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { ClearConsole2 } from "../../components/clearconsole";
+import FullScreen from "../../components/fullscreen";
+import RunCode from "../../components/runcode";
 
 const CompilerEditor = dynamic(() => import("../../components/editor"), {
   ssr: false,
@@ -18,28 +17,26 @@ const CompilerEditor = dynamic(() => import("../../components/editor"), {
 const JavascriptPage = () => {
   const [code, setCode] = useState("// write your javascript code here");
   const [output, setOutput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [theme, setTheme] = useState("dark");
-  const [hideContent, setHideContent] = useState(false);
-  function handleThemeChange() {
-    if (theme == "dark") {
-      setTheme("light");
-    } else {
-      setTheme("dark");
-    }
-  }
+  const ui: any = UIStore.useState();
+  const theme = ui.theme;
+  const hideContent = ui.hideContent;
 
   function handleHideContent() {
-    setHideContent(!hideContent);
+    UIStore.update((s) => {
+      s.hideContent = !hideContent;
+    });
   }
 
   useEffect(() => {
     const theme = localStorage.getItem("comp-theme");
     if (theme && theme == "light") {
-      setTheme("light");
+      UIStore.update((s) => {
+        s.theme = "light";
+      });
     } else {
-      setTheme("dark");
+      UIStore.update((s) => {
+        s.theme = "dark";
+      });
     }
   }, []);
 
@@ -56,7 +53,6 @@ const JavascriptPage = () => {
   };
 
   const runCode = () => {
-    setIsLoading(true);
     setOutput("");
     console.log(code);
 
@@ -112,7 +108,6 @@ const JavascriptPage = () => {
     } catch (error: any) {
       setOutput(`❌ Execution Error: ${error.message}`);
     } finally {
-      setIsLoading(false);
     }
   };
 
@@ -136,44 +131,15 @@ const JavascriptPage = () => {
       }`}
     >
       {/* Header */}
-      {!hideContent && (
+      {/* {!hideContent && (
         <>
-          <div
-            className={`${
-              theme == "dark"
-                ? "bg-[#2D2D2D] border-black"
-                : "bg-white border-white"
-            } shadow-sm border-b`}
-          >
-            <div className="max-w-7xl mx-auto px-4 py-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <Link href="/">
-                    <Image
-                      src={`${
-                        theme == "dark"
-                          ? `/syntaxz-dark.png`
-                          : `/syntaxz-light.png`
-                      }`}
-                      width={120}
-                      height={120}
-                      alt="syntaxz"
-                    />
-                  </Link>
-                </div>
-                <div className="flex gap-3 items-center">
-                  <ClearConsole clearOutput={clearOutput} />
-                  <RunCode2 runCode={runCode} isLoading={isLoading} />
-                  <ThemeChangeButton
-                    onChange={handleThemeChange}
-                    theme={theme}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+          <HeaderComponent
+            clearOutput={clearOutput}
+            runCode={runCode}
+            isLoading={isLoading}
+          />
         </>
-      )}
+      )} */}
 
       {/* Main Content */}
       <div

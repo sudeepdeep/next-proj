@@ -2,11 +2,17 @@
 "use client";
 import Image from "next/image";
 import React from "react";
+import UIStore from "../store";
 
 const RunCode = ({ runCode }: any) => {
+  const ui: any = UIStore.useState();
   return (
     <>
-      <div className="border-2 rounded-sm cursor-pointer">
+      <div
+        className={`border-2 ${
+          ui.theme == "dark" ? "border-white" : "border-white"
+        } rounded-sm cursor-pointer`}
+      >
         <Image
           title="run code"
           onClick={runCode}

@@ -1,9 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
-import Link from "next/link";
-import ThemeChangeButton from "../components/themechange";
 import Image from "next/image";
+import Link from "next/link";
 
 const languages = [
   { name: "JavaScript", slug: "javascript", available: true },
@@ -13,42 +11,10 @@ const languages = [
   { name: "Java", slug: "java", available: false },
 ];
 
-const HomePage = ({ theme, onChange, hideContent }: any) => {
+const HomePage = ({ theme }: any) => {
   return (
     <main className={`min-h-screen ${theme == "light" && "bg-gray-50"}`}>
-      <header>
-        {!hideContent && (
-          <>
-            <div
-              className={`${
-                theme == "dark"
-                  ? " border-black bg-[#2D2D2D]"
-                  : "border-b border-gray-200"
-              } shadow-sm border-b`}
-            >
-              <div className="max-w-7xl mx-auto px-4 py-2">
-                <div className="flex items-center justify-between">
-                  <Link href="/">
-                    <Image
-                      src={`${
-                        theme == "dark"
-                          ? `/syntaxz-dark.png`
-                          : `/syntaxz-light.png`
-                      }`}
-                      width={120}
-                      height={120}
-                      alt="syntaxz"
-                    />
-                  </Link>
-                  <div className="flex gap-3 items-center">
-                    <ThemeChangeButton onChange={onChange} theme={theme} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
-      </header>
+      <header></header>
 
       <div
         className={`${
