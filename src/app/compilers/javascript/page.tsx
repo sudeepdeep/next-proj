@@ -8,6 +8,7 @@ import ThemeChangeButton from "../../components/themechange";
 import ClearConsole, { ClearConsole2 } from "../../components/clearconsole";
 import FullScreen from "../../components/fullscreen";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 const CompilerEditor = dynamic(() => import("../../components/editor"), {
   ssr: false,
@@ -147,16 +148,18 @@ const JavascriptPage = () => {
             <div className="max-w-7xl mx-auto px-4 py-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <Image
-                    src={`${
-                      theme == "dark"
-                        ? `/syntaxz-dark.png`
-                        : `/syntaxz-light.png`
-                    }`}
-                    width={120}
-                    height={120}
-                    alt="syntaxz"
-                  />
+                  <Link href="/">
+                    <Image
+                      src={`${
+                        theme == "dark"
+                          ? `/syntaxz-dark.png`
+                          : `/syntaxz-light.png`
+                      }`}
+                      width={120}
+                      height={120}
+                      alt="syntaxz"
+                    />
+                  </Link>
                 </div>
                 <div className="flex gap-3 items-center">
                   <ClearConsole clearOutput={clearOutput} />

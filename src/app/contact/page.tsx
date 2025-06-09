@@ -1,10 +1,22 @@
 /* eslint-disable react/no-unescaped-entities */
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const ContactPage = () => {
   return (
     <main className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-xl mx-auto bg-white shadow-md rounded-lg p-8">
+        <div className="flex justify-center">
+          <Link href="/">
+            <Image
+              src="/syntaxz-light.png"
+              width={200}
+              height={200}
+              alt="syntaxz-logo"
+            />
+          </Link>
+        </div>
         <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
           Contact Us
         </h1>

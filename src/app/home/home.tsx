@@ -28,16 +28,18 @@ const HomePage = ({ theme, onChange, hideContent }: any) => {
             >
               <div className="max-w-7xl mx-auto px-4 py-2">
                 <div className="flex items-center justify-between">
-                  <Image
-                    src={`${
-                      theme == "dark"
-                        ? `/syntaxz-dark.png`
-                        : `/syntaxz-light.png`
-                    }`}
-                    width={120}
-                    height={120}
-                    alt="syntaxz"
-                  />
+                  <Link href="/">
+                    <Image
+                      src={`${
+                        theme == "dark"
+                          ? `/syntaxz-dark.png`
+                          : `/syntaxz-light.png`
+                      }`}
+                      width={120}
+                      height={120}
+                      alt="syntaxz"
+                    />
+                  </Link>
                   <div className="flex gap-3 items-center">
                     <ThemeChangeButton onChange={onChange} theme={theme} />
                   </div>
