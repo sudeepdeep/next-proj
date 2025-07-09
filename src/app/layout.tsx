@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import LayoutWrapper from "./layout-wrapper";
+import GoogleAdsense from "./GoogleAdsense";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     icon: "/favicon.png", // or "/favicon.png"
   },
   verification: {
-    google: "4HcUYb3E0iUBxAxhCxEGFonbJ90ovBNSDD9PAlX9GhI",
+    google: process.env.NEXT_PUBLIC_GOOGLE,
   },
 };
 
@@ -46,10 +46,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" type="image/png" href="/favicon.png" />
+      </head>
       <body
         className={`${inter.className} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <LayoutWrapper>{children}</LayoutWrapper>
+        <GoogleAdsense pId={process.env.NEXT_PUBLIC_PID} />
       </body>
     </html>
   );
