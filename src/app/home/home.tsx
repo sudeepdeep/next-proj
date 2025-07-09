@@ -12,9 +12,7 @@ const languages = [
 
 const HomePage = ({ theme }: any) => {
   return (
-    <main className={`min-h-screen ${theme == "light" && "bg-gray-50"}`}>
-      <header></header>
-
+    <div className={`min-h-screen ${theme == "light" && "bg-gray-50"}`}>
       <div
         className={`${
           theme == "dark" ? "bg-[#171717] text-white" : "bg-white text-black"
@@ -120,7 +118,7 @@ const HomePage = ({ theme }: any) => {
           <Image src="/learn.png" width={600} height={600} alt="learn-image" />
         </div>
       </section>
-    </main>
+    </div>
   );
 };
 

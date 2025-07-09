@@ -48,6 +48,10 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" type="image/png" href="/favicon.png" />
+        <meta
+          name="google-adsense-account"
+          content="ca-pub-5372222133131263"
+        ></meta>
       </head>
       <body
         className={`${inter.className} ${geistSans.variable} ${geistMono.variable} antialiased`}
