@@ -24,7 +24,7 @@ export default function Home() {
       <section
         className={`${ui.theme == "dark" ? "bg-[#171717]" : "bg-gray-50"}`}
       >
-        <HomePage theme={ui.theme} />
+        <HomePage />
       </section>
     </main>
   );

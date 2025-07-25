@@ -18,6 +18,8 @@ const HeaderComponent = ({ clearOutput, runCode, isLoading }: any) => {
       });
     }
     if (ui.theme == "dark") {
+      const html = document.documentElement;
+      html.classList.toggle("dark");
       UIStore.update((s) => {
         s.theme = "light";
       });
