@@ -127,16 +127,16 @@ const HeroSection = () => {
               </motion.button>
             </Link>
 
-            {/* <Link href="#explore">
+            <Link href="/about">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-8 py-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-semibold rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#ff914d] dark:hover:border-[#ff914d] transition-all duration-300 flex items-center gap-2"
               >
                 <FaCode className="w-4 h-4" />
-                Home
+                About
               </motion.button>
-            </Link> */}
+            </Link>
           </div>
         </motion.div>
 
