@@ -18,6 +18,7 @@ import {
 } from "react-icons/fa";
 import { languages } from "@/lib/languages";
 import { articles } from "@/lib/articles";
+import Image from "next/image";
 
 const HomePage = () => {
   useEffect(() => {
@@ -32,7 +33,9 @@ const HomePage = () => {
       <HeroSection />
 
       {/* Programs Section */}
-      <ProgramsSection />
+      <div id="explore">
+        <ProgramsSection />
+      </div>
 
       {/* Testimonials Section */}
       <TestimonialsSection />
@@ -41,7 +44,9 @@ const HomePage = () => {
       <FAQSection />
 
       {/* Latest Blogs */}
-      <BlogSection />
+      <div id="insights">
+        <BlogSection />
+      </div>
 
       {/* Glowing Code Block */}
       <GlowingCodeSection />
@@ -92,6 +97,9 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
+          <div className="w-full h-[60px] flex items-center justify-center">
+            <Image src="syntaxz-dark.png" width={140} height={140} alt="" />
+          </div>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 dark:from-white dark:via-gray-200 dark:to-white bg-clip-text text-transparent">
             Code Without
             <br />
@@ -107,7 +115,7 @@ const HeroSection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/compilers">
+            <Link href="#explore">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -119,7 +127,7 @@ const HeroSection = () => {
               </motion.button>
             </Link>
 
-            <Link href="/">
+            {/* <Link href="#explore">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -128,7 +136,7 @@ const HeroSection = () => {
                 <FaCode className="w-4 h-4" />
                 Home
               </motion.button>
-            </Link>
+            </Link> */}
           </div>
         </motion.div>
 
@@ -209,7 +217,7 @@ const ProgramsSection = () => {
               className="group"
             >
               <Link href={`/learn/${lang.slug}`}>
-                <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-[#ff914d] dark:hover:border-[#ff914d] relative overflow-hidden">
+                <div className="bg-white dark:bg-gray-900 h-[280px] rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-[#ff914d] dark:hover:border-[#ff914d] relative overflow-hidden">
                   {/* Glow effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-[#ff5757]/10 to-[#ff914d]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
@@ -547,7 +555,7 @@ const BlogSection = () => {
               className="group"
             >
               <Link href={article.url} target="_blank">
-                <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-[#ff914d] dark:hover:border-[#ff914d]">
+                <div className="bg-gray-50 dark:bg-gray-800 h-[500px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-[#ff914d] dark:hover:border-[#ff914d]">
                   <div className="aspect-video overflow-hidden">
                     <img
                       src={`/${article.image}`}
@@ -575,7 +583,7 @@ const BlogSection = () => {
           ))}
         </div>
 
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -593,7 +601,7 @@ const BlogSection = () => {
               <FaArrowRight className="w-4 h-4" />
             </motion.button>
           </Link>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );
@@ -646,7 +654,7 @@ public class HelloWorld {
   }, [codeExamples.length]);
 
   return (
-    <section className="py-24 bg-gray-50 dark:bg-gray-800 relative overflow-hidden">
+    <section className="py-24 bg-gray-50 dark:bg-gray-800 relative overflow-hidden h-[800px]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -746,7 +754,13 @@ const Footer = () => {
           {/* Logo and description */}
           <div className="lg:col-span-2">
             <div className="flex items-center mb-4">
-              <div className="w-8 h-8 bg-gradient-to-r from-[#ff5757] to-[#ff914d] rounded-lg mr-3"></div>
+              <Image
+                src="favicon.png"
+                alt=""
+                width={30}
+                height={30}
+                className="mr-2"
+              />
               <h3 className="text-2xl font-bold">Syntaxz</h3>
             </div>
             <p className="text-gray-400 mb-6 max-w-md">
@@ -756,7 +770,7 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a
-                href="https://github.com"
+                href="https://github.com/syntaxzofficial"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gradient-to-r hover:from-[#ff5757] hover:to-[#ff914d] transition-all duration-300"
@@ -764,7 +778,7 @@ const Footer = () => {
                 <FaGithub className="w-5 h-5" />
               </a>
               <a
-                href="https://twitter.com"
+                href="https://x.com/syntaxzcompiler"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gradient-to-r hover:from-[#ff5757] hover:to-[#ff914d] transition-all duration-300"
@@ -772,7 +786,7 @@ const Footer = () => {
                 <FaTwitter className="w-5 h-5" />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/syntaxz-compiler-b46b9a376/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gradient-to-r hover:from-[#ff5757] hover:to-[#ff914d] transition-all duration-300"
@@ -796,7 +810,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/compilers"
+                  href="#explore"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Compilers
@@ -804,7 +818,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/learn"
+                  href="#explore"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Learn
@@ -812,7 +826,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/blog"
+                  href="#insights"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Blog
