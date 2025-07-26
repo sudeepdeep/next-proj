@@ -2,25 +2,22 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import UIStore from "../store";
-import { AiOutlineCode } from "react-icons/ai";
-import { FiZap } from "react-icons/fi";
-import { BsMoonStars } from "react-icons/bs";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-
-export const languages = [
-  { name: "JavaScript", slug: "javascript", available: true },
-  { name: "Python", slug: "python", available: true },
-  { name: "R", slug: "r", available: true },
-  { name: "C++", slug: "cpp", available: true },
-  { name: "Java", slug: "java", available: true },
-  { name: "PHP", slug: "php", available: true },
-  { name: "GO", slug: "go", available: true },
-  { name: "Ruby", slug: "ruby", available: true },
-];
+import {
+  FaGithub,
+  FaTwitter,
+  FaLinkedin,
+  FaChevronDown,
+  FaPlay,
+  FaCode,
+  FaBookOpen,
+  FaArrowRight,
+} from "react-icons/fa";
+import { languages } from "@/lib/languages";
+import { articles } from "@/lib/articles";
 
 const HomePage = () => {
   useEffect(() => {
@@ -28,476 +25,849 @@ const HomePage = () => {
       s.hideContent = true;
     });
   }, []);
+
   return (
-    <div className={`min-h-screen dark:bg-gray-900`}>
-      <main className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-4 sm:px-8 md:px-16 py-12">
-        {/* Header */}
-        <header className="text-center mb-16">
-          <h1 className="md:text-6xl text-4xl sm:text-5xl font-bold mb-4">
-            Syntaxz <span className="text-[#ff914d]">&lt;</span>
-            <span>/</span>
-            <span className="text-[#ff5757]">&gt;</span>
-          </h1>
-          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300">
-            Online Compiler – Code, Run & Debug in Your Browser
-          </p>
-        </header>
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+      {/* Hero Section */}
+      <HeroSection />
 
-        {/* Hero Section */}
-        <section className="flex flex-col lg:flex-row items-center justify-between gap-12">
-          {/* Description */}
-          <div className="lg:w-1/2">
-            <h2 className="text-2xl font-semibold mb-4">
-              Write Code Instantly in Your Favorite Language
-            </h2>
-            <p className="text-gray-700 dark:text-gray-400 mb-6">
-              Syntaxz provides a powerful, fast, and secure online compiler that
-              supports all major programming languages — including C, C++,
-              Python, Java, and JavaScript. With our streamlined interface, you
-              can start coding in seconds without any setup, installations, or
-              configurations. <br />
-              <br />
-              Enjoy instant execution, syntax highlighting, dark mode, and
-              multi-language support — all optimized for performance and ease of
-              use.
-            </p>
-            <a href="#explore">
-              <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-lg transition-all duration-300">
-                Start Coding
-              </button>
-            </a>
-          </div>
+      {/* Programs Section */}
+      <ProgramsSection />
 
-          {/* Code Preview Box */}
-          <div className="lg:w-1/2 w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg p-6 overflow-auto">
-            <pre className="text-sm sm:text-base font-mono">
-              <TypewriterCodeBlock />
-            </pre>
-          </div>
-        </section>
+      {/* Testimonials Section */}
+      <TestimonialsSection />
 
-        {/* Features Section (Optional) */}
-        <section className="mt-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className="p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-md"
-            >
-              <h3 className="font-semibold text-xl mb-1 text-gray-900 dark:text-white flex items-center gap-2">
-                {feature.title}
-                {feature.icon}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">{feature.desc}</p>
-            </div>
-          ))}
-        </section>
-      </main>
+      {/* FAQ Section */}
+      <FAQSection />
 
-      <h2 className="text-3xl text-center font-bold text-gray-800 dark:text-white">
-        Languages
-      </h2>
-      <div
-        id="explore"
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
-      >
-        {languages.map((lang) => (
-          <div
-            key={lang.slug}
-            className="w-full max-w-sm bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-md hover:shadow-lg transition-transform duration-300 transform hover:scale-105 mx-auto"
-          >
-            <div className="flex flex-col items-center p-6">
-              <img
-                className="w-20 h-20 mb-4  shadow-lg"
-                src={`${lang.slug}.svg`}
-                alt={`${lang.name} logo`}
-              />
-              <h5 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">
-                {lang.name}
-              </h5>
-              <p className="text-sm text-center text-gray-600 dark:text-gray-400 mb-4">
-                Try out {lang.name} code directly in your browser.
-              </p>
-              <div className="flex gap-3 mt-auto">
-                <a
-                  href={`/compilers/${lang.slug}`}
-                  className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition"
-                >
-                  Try Now
-                </a>
-                <a
-                  href={`/learn/${lang.slug}`}
-                  className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-700 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition"
-                >
-                  Learn
-                </a>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* Latest Blogs */}
+      <BlogSection />
 
-      <section className="mt-24 px-4 sm:px-8 lg:px-20 flex flex-col md:flex-row items-center gap-12">
-        {/* Left Side: Image */}
-        <div className="md:w-1/2 flex justify-center">
-          <Image
-            src="/learn.png"
-            alt="Learn to code illustration"
-            width={520}
-            height={520}
-            className="rounded-xl max-w-full h-auto"
-          />
-        </div>
+      {/* Glowing Code Block */}
+      <GlowingCodeSection />
 
-        {/* Right Side: Text */}
-        <div className="md:w-1/2">
-          <h2 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-6">
-            Master Programming — <br className="hidden sm:block" />
-            Without Paying a Dime 💻
-          </h2>
-
-          <p className="text-gray-700 dark:text-gray-300 text-base md:text-lg mb-6">
-            Syntaxz helps you learn to code with curated, high-quality tutorials
-            and courses — all for free. Whether you're just starting out or
-            building on your skills, we've got resources to support your
-            journey.
-          </p>
-
-          {/* Feature Highlights */}
-          <div className="space-y-4 mb-6">
-            {[
-              "Curated free content from YouTube, Coursera, and more",
-              "Beginner to advanced-level topics",
-              "No ads. No subscriptions. Just code.",
-            ].map((point, idx) => (
-              <div key={idx} className="flex items-start space-x-2">
-                <span className="text-green-500 mt-1">✔</span>
-                <p className="text-gray-700 dark:text-gray-300">{point}</p>
-              </div>
-            ))}
-          </div>
-
-          <a
-            href="#explore"
-            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-400"
-          >
-            Browse Free Courses
-          </a>
-        </div>
-      </section>
-
-      <section className="py-20 bg-gray-50 dark:bg-gray-900">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-12">
-            What Developers Say
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Anjali K.",
-                text: "Syntaxz helped me test code during interviews. It's fast, responsive, and beginner-friendly.",
-              },
-              {
-                name: "Rohit M.",
-                text: "No need to set up anything. Just open the browser and code. A lifesaver!",
-              },
-              {
-                name: "Sarah J.",
-                text: "Loved the dark mode and speed. Perfect for quick algorithm practice.",
-              },
-            ].map((t, i) => (
-              <div
-                key={i}
-                className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow"
-              >
-                <p className="text-gray-700 dark:text-gray-300 italic">
-                  "{t.text}"
-                </p>
-                <div className="mt-4 font-semibold text-blue-600 dark:text-blue-400">
-                  {t.name}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-gray-100 dark:bg-gray-900">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-10">
-            Frequently Asked Questions
-          </h2>
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                Is it free to use Syntaxz?
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Yes! You can compile and run code completely free of cost.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                Do I need to install anything?
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                No installation needed. Just open the website and start coding.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <BlogPosts />
+      {/* Footer */}
       <Footer />
     </div>
   );
 };
 
-export default HomePage;
-
-const features = [
-  {
-    title: "Multiple Languages",
-    desc: "Supports C, C++, Python, Java, JavaScript and more.",
-    icon: (
-      <AiOutlineCode className="text-blue-600 dark:text-blue-400 w-6 h-6" />
-    ),
-  },
-  {
-    title: "Instant Execution",
-    desc: "No downloads or setups. Run your code in seconds.",
-    icon: <FiZap className="text-green-600 dark:text-green-400 w-6 h-6" />,
-  },
-  {
-    title: "Dark Mode",
-    desc: "Code comfortably with full dark mode support.",
-    icon: (
-      <BsMoonStars className="text-yellow-500 dark:text-yellow-300 w-6 h-6" />
-    ),
-  },
-];
-
-import { motion } from "framer-motion";
-
-const code = [
-  `<span class="text-gray-400">// Welcome to Syntaxz!</span>`,
-  `<span class="text-green-500">#include</span> <span class="text-yellow-300">&lt;stdio.h&gt;</span>`,
-  ``,
-  `<span class="text-blue-400">int</span> main() {`,
-  `&nbsp;&nbsp;<span class="text-pink-400">printf</span>("Hello, World!\\n");`,
-  `&nbsp;&nbsp;<span class="text-blue-400">return</span> 0;`,
-  `}`,
-];
-
-export function TypewriterCodeBlock() {
-  const [currentLine, setCurrentLine] = useState(0);
-  const [typedText, setTypedText] = useState("");
-  const [finished, setFinished] = useState(false);
-
-  useEffect(() => {
-    if (currentLine >= code.length) {
-      setFinished(true);
-      return;
-    }
-
-    const line = code[currentLine];
-    let charIndex = 0;
-
-    const interval = setInterval(() => {
-      charIndex++;
-      setTypedText((prev) => {
-        const lines = prev.split("\n");
-        lines[currentLine] = line.slice(0, charIndex);
-        return [...lines, ""].slice(0, currentLine + 1).join("\n");
-      });
-
-      if (charIndex >= line.length) {
-        clearInterval(interval);
-        setTimeout(() => setCurrentLine((prev) => prev + 1), 400);
-      }
-    }, 20);
-
-    return () => clearInterval(interval);
-  }, [currentLine]);
-
+// Hero Section Component
+const HeroSection = () => {
   return (
-    <div className="bg-gray-900 text-white font-mono text-sm p-4 rounded-lg shadow-md leading-relaxed">
-      <div
-        dangerouslySetInnerHTML={{
-          __html: typedText.replace(/\n/g, "<br/>"),
-        }}
-      />
-      {!finished && (
-        <motion.span
-          className="inline-block w-1 h-4 bg-white ml-1 align-middle"
-          animate={{ opacity: [0, 1] }}
-          transition={{ repeat: Infinity, duration: 0.6 }}
-        />
-      )}
-    </div>
-  );
-}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,87,87,0.1),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,145,77,0.1),transparent_50%)]"></div>
+      </div>
 
-export function BlogPosts() {
-  return (
-    <section className="py-20 bg-white dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-gray-800 dark:text-white text-center mb-10">
-          From Our Blog
-        </h2>
+      {/* Floating Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-gradient-to-r from-[#ff5757] to-[#ff914d] rounded-full opacity-20"
+            animate={{
+              x: [0, 100, 0],
+              y: [0, -100, 0],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: 10 + i * 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            style={{
+              left: `${20 + i * 15}%`,
+              top: `${30 + i * 10}%`,
+            }}
+          />
+        ))}
+      </div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {/* Example blog cards – replace with your Medium links */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 dark:from-white dark:via-gray-200 dark:to-white bg-clip-text text-transparent">
+            Code Without
+            <br />
+            <span className="bg-gradient-to-r from-[#ff5757] to-[#ff914d] bg-clip-text text-transparent">
+              Boundaries
+            </span>
+          </h1>
+
+          <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
+            The most powerful online compiler that supports 8+ programming
+            languages. Write, run, and share code instantly — all in your
+            browser.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link href="/compilers">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 bg-gradient-to-r from-[#ff5757] to-[#ff914d] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 group"
+              >
+                <FaPlay className="w-4 h-4" />
+                Start Coding
+                <FaArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </motion.button>
+            </Link>
+
+            <Link href="/">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-semibold rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-[#ff914d] dark:hover:border-[#ff914d] transition-all duration-300 flex items-center gap-2"
+              >
+                <FaCode className="w-4 h-4" />
+                Home
+              </motion.button>
+            </Link>
+          </div>
+        </motion.div>
+
+        {/* Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto"
+        >
           {[
-            {
-              title:
-                "⚡️ Run JavaScript Code Online Instantly – No Setup, Just Code",
-              description:
-                "Whether you're a beginner trying your first `console.log()` or a developer testing a quick script, writing JavaScript shouldn't require setting up a whole environment.",
-              link: "https://medium.com/@syntaxz.com/%EF%B8%8F-run-javascript-code-online-instantly-no-setup-just-code-e741b43513e0",
-            },
-            {
-              title:
-                "SmolAgents: Building Lightweight Autonomous Agents with Ease",
-              description:
-                "In this post, we’ll explore what SmolAgents is, how it works, and why you might want to use it for your next AI agent project.",
-              link: "https://medium.com/@syntaxz.com/smolagents-building-lightweight-autonomous-agents-with-ease-8b7a38355a63",
-            },
-            {
-              title: "Build a Python Tool in Minutes",
-              description:
-                "Tired of writing boilerplate code? With SmolAgents, you can describe your idea in plain English and let an LLM do the rest. In this post, I’ll show you how I built a working Python CLI tool from a single prompt — in under 5 minutes.",
-              link: "https://medium.com/@syntaxz.com/build-a-python-tool-in-minutes-using-smolagents-a97221c456ce",
-            },
-          ].map((post, i) => (
-            <a
-              key={i}
-              href={post.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-gray-50 dark:bg-gray-800 rounded-lg shadow hover:shadow-lg transition-all duration-300 p-6 block"
+            { number: "8+", label: "Languages" },
+            { number: "100K+", label: "Developers" },
+            { number: "1M+", label: "Code Runs" },
+          ].map((stat, index) => (
+            <div key={index} className="text-center">
+              <div className="text-3xl font-bold text-[#ff5757] mb-2">
+                {stat.number}
+              </div>
+              <div className="text-gray-600 dark:text-gray-400">
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+// Programs Section Component
+const ProgramsSection = () => {
+  const languageDescriptions = {
+    javascript:
+      "The language of the web. Build interactive websites and modern applications.",
+    python:
+      "Versatile and beginner-friendly. Perfect for data science, AI, and web development.",
+    java: "Enterprise-grade language. Build scalable applications and Android apps.",
+    cpp: "High-performance programming. System programming and competitive coding.",
+    php: "Server-side scripting. Power dynamic websites and web applications.",
+    go: "Modern systems language. Fast, simple, and built for the cloud.",
+    ruby: "Developer happiness focused. Elegant syntax for web development.",
+    r: "Statistical computing powerhouse. Data analysis and visualization.",
+  };
+
+  return (
+    <section className="py-24 bg-gray-50 dark:bg-gray-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Choose Your
+            <span className="bg-gradient-to-r from-[#ff5757] to-[#ff914d] bg-clip-text text-transparent">
+              {" "}
+              Language
+            </span>
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            From web development to data science, we support all the languages
+            you love
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {languages.map((lang, index) => (
+            <motion.div
+              key={lang.slug}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -10 }}
+              className="group"
             >
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
-                {post.title}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
-                {post.description}
-              </p>
-              <span className="inline-block mt-4 text-blue-600 dark:text-blue-400 text-sm font-medium hover:underline">
-                Read more →
-              </span>
-            </a>
+              <Link href={`/learn/${lang.slug}`}>
+                <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-[#ff914d] dark:hover:border-[#ff914d] relative overflow-hidden">
+                  {/* Glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#ff5757]/10 to-[#ff914d]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                  <div className="relative z-10">
+                    <div className="w-16 h-16 mx-auto mb-4 p-3 bg-gray-100 dark:bg-gray-800 rounded-xl group-hover:bg-gradient-to-r group-hover:from-[#ff5757] group-hover:to-[#ff914d] transition-all duration-300">
+                      <img
+                        src={`/${lang.slug}.svg`}
+                        alt={`${lang.name} logo`}
+                        className="w-full h-full object-contain group-hover:brightness-0 group-hover:invert transition-all duration-300"
+                      />
+                    </div>
+
+                    <h3 className="text-xl font-semibold mb-2 group-hover:text-[#ff5757] transition-colors">
+                      {lang.name}
+                    </h3>
+
+                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                      {
+                        languageDescriptions[
+                          lang.slug as keyof typeof languageDescriptions
+                        ]
+                      }
+                    </p>
+
+                    <div className="mt-4 flex items-center text-[#ff5757] font-medium text-sm group-hover:translate-x-2 transition-transform duration-300">
+                      Learn more <FaArrowRight className="ml-2 w-3 h-3" />
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
           ))}
         </div>
       </div>
     </section>
   );
-}
+};
 
-export function Footer() {
+// Testimonials Section Component
+const TestimonialsSection = () => {
+  const testimonials = [
+    {
+      name: "Sarah Chen",
+      role: "Full Stack Developer",
+      company: "Google",
+      image:
+        "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
+      content:
+        "Syntaxz has revolutionized how I prototype and test code. The instant execution and clean interface make it perfect for quick experiments and sharing code snippets with my team.",
+    },
+    {
+      name: "Marcus Rodriguez",
+      role: "CS Student",
+      company: "MIT",
+      image:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+      content:
+        "As a computer science student, I use Syntaxz daily for assignments and practice. The multi-language support and dark mode make coding sessions comfortable and productive.",
+    },
+    {
+      name: "Priya Patel",
+      role: "Data Scientist",
+      company: "Netflix",
+      image:
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+      content:
+        "The Python support is exceptional. I can quickly test data analysis scripts and share results with colleagues. It's become an essential tool in my workflow.",
+    },
+    {
+      name: "Alex Thompson",
+      role: "Software Engineer",
+      company: "Stripe",
+      image:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+      content:
+        "Clean, fast, and reliable. Syntaxz feels like a native desktop application but runs entirely in the browser. The performance is incredible.",
+    },
+    {
+      name: "Lisa Wang",
+      role: "Tech Lead",
+      company: "Vercel",
+      image:
+        "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&h=150&fit=crop&crop=face",
+      content:
+        "We use Syntaxz for technical interviews and code reviews. The ability to collaborate in real-time and run code instantly has streamlined our hiring process.",
+    },
+    {
+      name: "David Kim",
+      role: "Freelance Developer",
+      company: "Independent",
+      image:
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
+      content:
+        "Perfect for client demos and rapid prototyping. I can show working code immediately without any setup. It's saved me countless hours in client meetings.",
+    },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex(
+        (prev) => (prev + 1) % Math.ceil(testimonials.length / 3)
+      );
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [testimonials.length]);
+
   return (
-    <footer className="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 py-10 px-6 md:px-12">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-        {/* Logo + description */}
-        <div>
-          <h2 className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-            Syntaxz
+    <section className="py-24 bg-white dark:bg-gray-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            What Others
+            <span className="bg-gradient-to-r from-[#ff5757] to-[#ff914d] bg-clip-text text-transparent">
+              {" "}
+              Say
+            </span>
           </h2>
-          <p className="mt-2 text-sm">
-            A modern, fast, and secure online compiler for developers. Write,
-            run, and share code instantly — all in your browser.
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Trusted by developers, students, and companies worldwide
           </p>
-        </div>
+        </motion.div>
 
-        {/* Navigation */}
-
-        <div>
-          <h3 className="font-semibold mb-3">Languages</h3>
-          <ul className="space-y-2 text-sm">
-            {languages.map((item) => (
-              <li>
-                <Link href={`/learn/${item.slug}`} className="hover:underline">
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Resources */}
-        <div>
-          <h3 className="font-semibold mb-3">Resources</h3>
-          <ul className="space-y-2 text-sm">
-            {/* <li>
-              <a
-                href="https://github.com"
-                target="_blank"
-                className="hover:underline"
-              >
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://docs.syntaxz.com" className="hover:underline">
-                Documentation
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:underline">
-                Privacy Policy
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:underline">
-                Terms of Use
-              </a>
-            </li> */}
-            <li>
-              <Link href="/about" className="hover:underline">
-                About
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact" className="hover:underline">
-                Contact
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        {/* Socials */}
-        <div>
-          <h3 className="font-semibold mb-3">Connect</h3>
-          <div className="flex space-x-4 text-xl">
-            <a
-              href="https://github.com"
-              target="_blank"
-              className="hover:text-gray-900 dark:hover:text-white"
+        <div className="relative overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.5 }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             >
-              <FaGithub />
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              className="hover:text-gray-900 dark:hover:text-white"
-            >
-              <FaLinkedin />
-            </a>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              className="hover:text-gray-900 dark:hover:text-white"
-            >
-              <FaTwitter />
-            </a>
+              {testimonials
+                .slice(currentIndex * 3, currentIndex * 3 + 3)
+                .map((testimonial, index) => (
+                  <div
+                    key={index}
+                    className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700"
+                  >
+                    <div className="flex items-center mb-6">
+                      <img
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        className="w-12 h-12 rounded-full object-cover mr-4"
+                      />
+                      <div>
+                        <h4 className="font-semibold text-gray-900 dark:text-white">
+                          {testimonial.name}
+                        </h4>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          {testimonial.role} at {testimonial.company}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                      "{testimonial.content}"
+                    </p>
+                  </div>
+                ))}
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Navigation dots */}
+          <div className="flex justify-center mt-8 space-x-2">
+            {Array.from({ length: Math.ceil(testimonials.length / 3) }).map(
+              (_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentIndex
+                      ? "bg-gradient-to-r from-[#ff5757] to-[#ff914d]"
+                      : "bg-gray-300 dark:bg-gray-600"
+                  }`}
+                />
+              )
+            )}
           </div>
         </div>
       </div>
+    </section>
+  );
+};
 
-      {/* Bottom line */}
-      <div className="mt-10 border-t border-gray-300 dark:border-gray-700 pt-4 text-center text-xs text-gray-500">
-        © {new Date().getFullYear()} Syntaxz. All rights reserved.
+// FAQ Section Component
+const FAQSection = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const faqs = [
+    {
+      question: "Is Syntaxz completely free to use?",
+      answer:
+        "Yes! Syntaxz is completely free to use. You can compile and run code in all supported languages without any cost or registration required.",
+    },
+    {
+      question: "Do I need to install anything to use Syntaxz?",
+      answer:
+        "No installation required! Syntaxz runs entirely in your browser. Just visit our website and start coding immediately.",
+    },
+    {
+      question: "Which programming languages are supported?",
+      answer:
+        "We support 8+ popular programming languages including JavaScript, Python, Java, C++, PHP, Go, Ruby, and R. We're constantly adding more languages based on user demand.",
+    },
+    {
+      question: "Can I save and share my code?",
+      answer:
+        "Yes! You can save your code locally and share it with others through direct links. We also provide options to download your code files.",
+    },
+    {
+      question: "Is my code secure and private?",
+      answer:
+        "Absolutely. Your code is processed securely and we don't store your code on our servers unless you explicitly choose to save it. All execution happens in isolated environments.",
+    },
+    {
+      question: "Can I use Syntaxz for commercial projects?",
+      answer:
+        "Yes, you can use Syntaxz for both personal and commercial projects. There are no restrictions on the type of code you can run or develop.",
+    },
+  ];
+
+  return (
+    <section className="py-24 bg-gray-50 dark:bg-gray-800">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Frequently Asked
+            <span className="bg-gradient-to-r from-[#ff5757] to-[#ff914d] bg-clip-text text-transparent">
+              {" "}
+              Questions
+            </span>
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300">
+            Everything you need to know about Syntaxz
+          </p>
+        </motion.div>
+
+        <div className="space-y-4">
+          {faqs.map((faq, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden"
+            >
+              <button
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                className="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200"
+              >
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white pr-4">
+                  {faq.question}
+                </h3>
+                <motion.div
+                  animate={{ rotate: openIndex === index ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <FaChevronDown className="w-5 h-5 text-[#ff5757] flex-shrink-0" />
+                </motion.div>
+              </button>
+
+              <AnimatePresence>
+                {openIndex === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-8 pb-6">
+                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Blog Section Component
+const BlogSection = () => {
+  return (
+    <section className="py-24 bg-white dark:bg-gray-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Latest
+            <span className="bg-gradient-to-r from-[#ff5757] to-[#ff914d] bg-clip-text text-transparent">
+              {" "}
+              Insights
+            </span>
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Stay updated with the latest in programming, tutorials, and tech
+            insights
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          {articles.map((article, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="group"
+            >
+              <Link href={article.url} target="_blank">
+                <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-[#ff914d] dark:hover:border-[#ff914d]">
+                  <div className="aspect-video overflow-hidden">
+                    <img
+                      src={`/${article.image}`}
+                      alt={article.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                  </div>
+
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white group-hover:text-[#ff5757] transition-colors line-clamp-2">
+                      {article.name}
+                    </h3>
+
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4 line-clamp-3">
+                      {article.description}
+                    </p>
+
+                    <div className="flex items-center text-[#ff5757] font-medium group-hover:translate-x-2 transition-transform duration-300">
+                      Read more <FaArrowRight className="ml-2 w-3 h-3" />
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <Link href="/blog">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-4 bg-gradient-to-r from-[#ff5757] to-[#ff914d] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 mx-auto"
+            >
+              <FaBookOpen className="w-4 h-4" />
+              View All Blogs
+              <FaArrowRight className="w-4 h-4" />
+            </motion.button>
+          </Link>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+// Glowing Code Section Component
+const GlowingCodeSection = () => {
+  const [currentCode, setCurrentCode] = useState(0);
+
+  const codeExamples = [
+    {
+      language: "JavaScript",
+      code: `// Modern JavaScript ES6+
+const greetUser = (name) => {
+  return \`Hello, \${name}! Welcome to Syntaxz.\`;
+};
+
+console.log(greetUser("Developer"));`,
+    },
+    {
+      language: "Python",
+      code: `# Python - Simple and elegant
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+print(f"Fibonacci(10): {fibonacci(10)}")`,
+    },
+    {
+      language: "Java",
+      code: `// Java - Enterprise ready
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, Syntaxz!");
+        
+        int[] numbers = {1, 2, 3, 4, 5};
+        Arrays.stream(numbers)
+              .forEach(System.out::println);
+    }
+}`,
+    },
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentCode((prev) => (prev + 1) % codeExamples.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [codeExamples.length]);
+
+  return (
+    <section className="py-24 bg-gray-50 dark:bg-gray-800 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Experience the
+            <span className="bg-gradient-to-r from-[#ff5757] to-[#ff914d] bg-clip-text text-transparent">
+              {" "}
+              Magic
+            </span>
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            See your code come to life with our advanced editor and instant
+            execution
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="relative"
+        >
+          {/* Glowing background */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#ff5757]/20 to-[#ff914d]/20 rounded-3xl blur-3xl"></div>
+          <div className="absolute inset-0 bg-white/10 dark:bg-white/5 rounded-3xl backdrop-blur-sm"></div>
+
+          {/* Code terminal */}
+          <div className="relative bg-gray-900 rounded-3xl shadow-2xl border border-gray-700 overflow-hidden">
+            {/* Terminal header */}
+            <div className="flex items-center justify-between px-6 py-4 bg-gray-800 border-b border-gray-700">
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+              </div>
+              <div className="text-gray-400 text-sm font-mono">
+                {codeExamples[currentCode].language}
+              </div>
+            </div>
+
+            {/* Code content */}
+            <div className="p-8">
+              <AnimatePresence mode="wait">
+                <motion.pre
+                  key={currentCode}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="text-gray-300 font-mono text-sm leading-relaxed overflow-x-auto"
+                >
+                  <code
+                    dangerouslySetInnerHTML={{
+                      __html: highlightCode(codeExamples[currentCode].code),
+                    }}
+                  />
+                </motion.pre>
+              </AnimatePresence>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+// Code highlighting function
+const highlightCode = (code: string) => {
+  return code
+    .replace(/\/\/.*$/gm, '<span class="text-gray-500">$&</span>')
+    .replace(/#.*$/gm, '<span class="text-gray-500">$&</span>')
+    .replace(
+      /\b(const|let|var|function|class|public|static|void|int|String|def|return|if|else|for|while|import|from|package)\b/g,
+      '<span class="text-blue-400">$1</span>'
+    )
+    .replace(
+      /\b(console|System|print|println)\b/g,
+      '<span class="text-green-400">$1</span>'
+    )
+    .replace(/"([^"]*)"/g, '<span class="text-yellow-300">"$1"</span>')
+    .replace(/'([^']*)'/g, "<span class=\"text-yellow-300\">'$1'</span>")
+    .replace(/`([^`]*)`/g, '<span class="text-yellow-300">`$1`</span>');
+};
+
+// Footer Component
+const Footer = () => {
+  return (
+    <footer className="bg-gray-900 text-white py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Logo and description */}
+          <div className="lg:col-span-2">
+            <div className="flex items-center mb-4">
+              <div className="w-8 h-8 bg-gradient-to-r from-[#ff5757] to-[#ff914d] rounded-lg mr-3"></div>
+              <h3 className="text-2xl font-bold">Syntaxz</h3>
+            </div>
+            <p className="text-gray-400 mb-6 max-w-md">
+              The most powerful online compiler that supports 8+ programming
+              languages. Write, run, and share code instantly — all in your
+              browser.
+            </p>
+            <div className="flex space-x-4">
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gradient-to-r hover:from-[#ff5757] hover:to-[#ff914d] transition-all duration-300"
+              >
+                <FaGithub className="w-5 h-5" />
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gradient-to-r hover:from-[#ff5757] hover:to-[#ff914d] transition-all duration-300"
+              >
+                <FaTwitter className="w-5 h-5" />
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gradient-to-r hover:from-[#ff5757] hover:to-[#ff914d] transition-all duration-300"
+              >
+                <FaLinkedin className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul className="space-y-2">
+              <li>
+                <Link
+                  href="/"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/compilers"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Compilers
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/learn"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Learn
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/blog"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Blog
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Languages */}
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Languages</h4>
+            <ul className="space-y-2">
+              {languages.slice(0, 4).map((lang) => (
+                <li key={lang.slug}>
+                  <Link
+                    href={`/learn/${lang.slug}`}
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    {lang.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom section */}
+        <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-400 text-sm">
+            © {new Date().getFullYear()} Syntaxz. All rights reserved.
+          </p>
+          <div className="flex space-x-6 mt-4 md:mt-0">
+            <Link
+              href="/privacy"
+              className="text-gray-400 hover:text-white text-sm transition-colors"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms"
+              className="text-gray-400 hover:text-white text-sm transition-colors"
+            >
+              Terms of Service
+            </Link>
+            <Link
+              href="/contact"
+              className="text-gray-400 hover:text-white text-sm transition-colors"
+            >
+              Contact
+            </Link>
+          </div>
+        </div>
       </div>
     </footer>
   );
-}
+};
+
+export default HomePage;

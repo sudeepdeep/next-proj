@@ -2,7 +2,7 @@
 "use client";
 import React, { FC, useState } from "react";
 import UIStore from "../store";
-import { languages } from "../home/home";
+import { languages } from "@/lib/languages";
 import Image from "next/image";
 
 const LanguagesDropdown: FC<any> = ({ language }) => {
