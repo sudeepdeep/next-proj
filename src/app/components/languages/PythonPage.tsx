@@ -130,6 +130,7 @@ export default function PythonPage() {
   };
 
   function handleHideContent() {
+    console.log(hideContent);
     UIStore.update((s) => {
       s.hideContent = !hideContent;
     });

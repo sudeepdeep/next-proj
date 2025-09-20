@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 
 const FullScreen = ({ hideContent, onHideContent }: any) => {
+  console.log(hideContent);
   return (
     <div>
       <Image

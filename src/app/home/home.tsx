@@ -2,23 +2,22 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useEffect, useState } from "react";
-import UIStore from "../store";
-import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
-import {
-  FaGithub,
-  FaTwitter,
-  FaLinkedin,
-  FaChevronDown,
-  FaPlay,
-  FaCode,
-  FaBookOpen,
-  FaArrowRight,
-} from "react-icons/fa";
-import { languages } from "@/lib/languages";
 import { articles } from "@/lib/articles";
+import { languages } from "@/lib/languages";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import {
+  FaArrowRight,
+  FaChevronDown,
+  FaCode,
+  FaGithub,
+  FaLinkedin,
+  FaPlay,
+  FaTwitter,
+} from "react-icons/fa";
+import UIStore from "../store";
 
 const HomePage = () => {
   useEffect(() => {
@@ -38,7 +37,7 @@ const HomePage = () => {
       </div>
 
       {/* Testimonials Section */}
-      <TestimonialsSection />
+      {/* <TestimonialsSection /> */}
 
       {/* FAQ Section */}
       <FAQSection />
@@ -729,20 +728,34 @@ public class HelloWorld {
 
 // Code highlighting function
 const highlightCode = (code: string) => {
-  return code
-    .replace(/\/\/.*$/gm, '<span class="text-gray-500">$&</span>')
-    .replace(/#.*$/gm, '<span class="text-gray-500">$&</span>')
-    .replace(
-      /\b(const|let|var|function|class|public|static|void|int|String|def|return|if|else|for|while|import|from|package)\b/g,
-      '<span class="text-blue-400">$1</span>'
-    )
-    .replace(
-      /\b(console|System|print|println)\b/g,
-      '<span class="text-green-400">$1</span>'
-    )
-    .replace(/"([^"]*)"/g, '<span class="text-yellow-300">"$1"</span>')
-    .replace(/'([^']*)'/g, "<span class=\"text-yellow-300\">'$1'</span>")
-    .replace(/`([^`]*)`/g, '<span class="text-yellow-300">`$1`</span>');
+  return (
+    code
+      // First, escape HTML to prevent conflicts
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+
+      // Highlight strings first (most specific)
+      .replace(/"([^"]*)"/g, '<span class="text-yellow-300">"$1"</span>')
+      .replace(/'([^']*)'/g, "<span class=\"text-yellow-300\">'$1'</span>")
+      .replace(/`([^`]*)`/g, '<span class="text-yellow-300">`$1`</span>')
+
+      // Highlight keywords (avoid matching inside strings by using negative lookbehind/lookahead)
+      .replace(
+        /\b(const|let|var|function|class|public|static|void|int|String|def|return|if|else|for|while|import|from|package)\b/g,
+        '<span class="text-blue-400">$1</span>'
+      )
+
+      // Highlight console/system methods
+      .replace(
+        /\b(console|System|print|println)\b/g,
+        '<span class="text-green-400">$1</span>'
+      )
+
+      // Highlight comments last (least specific)
+      .replace(/\/\/.*$/gm, '<span class="text-gray-500">$&</span>')
+      .replace(/#.*$/gm, '<span class="text-gray-500">$&</span>')
+  );
 };
 
 // Footer Component
@@ -785,14 +798,14 @@ const Footer = () => {
               >
                 <FaTwitter className="w-5 h-5" />
               </a>
-              <a
+              {/* <a
                 href="https://www.linkedin.com/in/syntaxz-compiler-b46b9a376/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gradient-to-r hover:from-[#ff5757] hover:to-[#ff914d] transition-all duration-300"
               >
                 <FaLinkedin className="w-5 h-5" />
-              </a>
+              </a> */}
             </div>
           </div>
 

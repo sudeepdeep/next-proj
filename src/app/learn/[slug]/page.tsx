@@ -106,7 +106,7 @@ const ResourceSection: React.FC<ResourceSectionProps> = ({
         </h2>
         <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
           {type === "video"
-            ? "Hand-picked video tutorials to accelerate your learning journey"
+            ? "Hand-picked video tutorials to accelerate your learning journey and deeper understanding"
             : "Comprehensive articles and documentation to deepen your understanding"}
         </p>
       </div>
@@ -236,7 +236,7 @@ export default function LearnLanguagePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:from-gray-900 dark:via-black dark:to-blue-950">
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden h-[100vh]">
         {/* Background Elements */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-purple-600/5 to-pink-600/5 dark:from-blue-400/5 dark:via-purple-400/5 dark:to-pink-400/5"></div>
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
@@ -267,7 +267,7 @@ export default function LearnLanguagePage() {
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link
-                  href={`/compilers/${lang.slug}`}
+                  href={`/code-editor/${lang.slug}`}
                   className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#ff5757] to-[#ff914d] hover:from-[#ff4141] hover:to-[#ff7a2d] text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-2xl hover:shadow-orange-500/25 transform hover:-translate-y-1"
                 >
                   <svg
@@ -379,7 +379,7 @@ export default function LearnLanguagePage() {
                 code right away. No setup required!
               </p>
               <Link
-                href={`/compilers/${lang.slug}`}
+                href={`/code-editor/${lang.slug}`}
                 className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#ff5757] to-[#ff914d] hover:from-[#ff4141] hover:to-[#ff7a2d] text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:-translate-y-1"
               >
                 <svg

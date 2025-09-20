@@ -4,7 +4,7 @@ import { Store } from "pullstate";
 
 const UIStore = new Store<any>({
   theme: "dark",
-  hideContent: false,
+  hideContent: true,
 });
 
 export default UIStore;

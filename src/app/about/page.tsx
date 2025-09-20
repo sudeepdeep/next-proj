@@ -230,7 +230,10 @@ export default function AboutPage() {
           <div className="text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full border border-gray-200 dark:border-gray-700 mb-8">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
+              <span
+                onClick={() => (window.location.href = "/")}
+                className="text-sm font-medium text-gray-600 dark:text-gray-300"
+              >
                 About Syntaxz
               </span>
             </div>
@@ -309,14 +312,6 @@ export default function AboutPage() {
                       between different tools, setting up environments, and
                       dealing with complex configurations just to run a few
                       lines of code.
-                    </p>
-                    <p>
-                      In 2023, our founder Alex Chen decided to solve this
-                      problem once and for all. What started as a weekend
-                      project to create a simple online JavaScript runner
-                      quickly evolved into something much bigger when the
-                      developer community embraced it with overwhelming
-                      enthusiasm.
                     </p>
                     <p>
                       Today, Syntaxz supports 8+ programming languages and

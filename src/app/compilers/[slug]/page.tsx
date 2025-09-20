@@ -9,6 +9,7 @@ import RPage from "@/app/components/languages/RPage";
 import PhpPage from "@/app/components/languages/PhpPage";
 import GoPage from "@/app/components/languages/GoPage";
 import RubyPage from "@/app/components/languages/RubyPage";
+import UIStore from "@/app/store";
 
 export default function LanguagePage() {
   const params = useParams();
@@ -16,6 +17,9 @@ export default function LanguagePage() {
 
   useEffect(() => {
     console.log("Route changed:", slug);
+    UIStore.update((s) => {
+      s.hideContent = false;
+    });
   }, [slug]);
 
   const renderComponent = () => {
